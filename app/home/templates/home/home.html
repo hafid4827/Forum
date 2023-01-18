@@ -1,0 +1,32 @@
+{% extends "../base.html" %}
+<!--  -->
+{% block title %} Home {% endblock %}
+<!--  -->
+{% block content %}
+<!--  -->
+<div class="flex justify-center items-center h-screen w-full">
+  <div class="">
+    <p class="text-white text-4xl first-letter:capitalize">
+      <span class="text-green-500">$</span> Do you want to continue?
+      <br />
+      <span
+        >(<span class="text-green-500">YES</span>)/(<span class="text-rose-700"
+          >NOT</span
+        >)</span
+      >
+      <span class="text-green-500 text-4xl first-letter:capitalize"> ~/</span>
+      <!-- <h1 class="text-white text-4xl capitalize inline-block">Forum Programing</h1> -->
+      <span id="down_terminal"></span><span id="floor">_</span>
+    </p>
+  </div>
+</div>
+<!--  -->
+{% endblock %}
+<!--  -->
+{% block javascript %}
+<!--  -->
+<script>
+  TabKeyBoard("floor", "down_terminal");
+</script>
+<!--  -->
+{% endblock %}
