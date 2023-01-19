@@ -140,7 +140,8 @@ TAILWIND_APP_NAME = 'theme'
 
 
 # Npm bin
-NPM_BIN_PATH = "C:\\Program Files\\nodejs\\npm.cmd"
+# NPM_BIN_PATH = "C:\\Program Files\\nodejs\\npm.cmd"
+# NPM_BIN_PATH = "/usr/local/bin/npm"
 
 
 # Inter IPS communication tailwind

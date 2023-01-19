@@ -8,7 +8,7 @@
 
 <p align="center">
 
-![](https://img.shields.io/github/stars/pandao/editor.md.svg) ![](https://img.shields.io/github/forks/pandao/editor.md.svg) ![](https://img.shields.io/github/tag/pandao/editor.md.svg) ![](https://img.shields.io/github/release/pandao/editor.md.svg) ![](https://img.shields.io/github/issues/pandao/editor.md.svg) ![](https://img.shields.io/bower/v/editor.md.svg)
+![](https://img.shields.io/github/stars/pandao/editor.md.svg) ![](https://img.shields.io/github/forks/hafid4827/editor.md.svg) ![](https://img.shields.io/github/tag/pandao/editor.md.svg) ![](https://img.shields.io/github/release/hafid4827/editor.md.svg) ![](https://img.shields.io/github/issues/pandao/editor.md.svg) ![](https://img.shields.io/bower/v/editor.md.svg)
 
 </p>
 
@@ -541,6 +541,20 @@ Antes de emepzar recuerda tener la misma estructura de carpetas mostradas en la 
 
 Con esto realizado ya podras ver el puesto asignado por defecto en **Django** abre tu navegador pega el puerto y mira tu primera pagina web creada con django y **tailwindcss**.
 
+### NOTA 
+
+Antes de continuar aseguremonos de tener en el fichero `settings.py` la propiedad `DIRS` tenga como valor `["theme/templates"]`.
+
+```
+TEMPLATES = [
+  {
+      ...
+      "DIRS" : ["theme/templates"],
+      ...
+    }
+]
+```
+
 **_Creditos a https://github.com/timonweb/django-tailwind_**
 
 <br />
@@ -557,6 +571,129 @@ seguiremos los pasos correspondientes para ejecutar **PostgreSQL**.
 `Server>PostgreSQL(Doble Click)>Agregar Credenciales en ventana emergente`
 
 Con esto realizado podremos ver un panel administrativo del modelo de ejemplo de `PostgreSQL`.
+
+# PostgresSQL en Linux
+
+En mi caso estoy usando Majaro por lo tanto la configuracion puede cambiar segun la distribucion que estes usando:
+
+### Instalando postgresql
+
+- Abriremos nuestra terminal y escribimos.
+
+```
+sudo pacman -S postgresql
+```
+
+- confirma si esta instalado y ahora tendremos que iniciar la base de datos.
+
+```
+sudo systemctl start postgresql
+```
+
+- Haremos que inicialice de forma automatica postgres una vez arranque el sistema.
+
+```
+sudo systemctl enable postgresql
+```
+
+- Inicializaremos una nueva base de datos.
+
+```
+sudo -u initdb --locale $LANG -E UTF8 -D '/var/lib/postgres/data/'
+```
+- Crearemos la base de datos.
+
+```
+sudo -u postgres createuser -s admin
+```
+- Crearemos nuestra base de datos.
+
+```
+sudo -u postgres createdb -O admin Forum_Django_DB
+```
+
+### Instalando pgadmin4
+
+- Instalaremos postgres con el menejador de paquetes de tu preferencia en este caso con pacman.
+
+```
+sudo pacman -S postgresql
+```
+
+- Accedemos a la ruta /var/lib
+
+
+```
+cd /var/lib
+```
+
+- Crearemos una capeta llamada /pgadmin
+
+```
+mkdir postgresql
+```
+
+- Accedemos a la carpeta /pgadmin
+
+```
+cd postgresql
+```
+
+- Crearemos una virtualizacion con virtualenv en este caso.
+
+```
+virtualenv postgresql
+```
+
+- Inicializamos nuestra virtualizacion.
+
+```
+source env/bin/activate
+```
+
+- Actualizamos el manejador de paquetes pip.
+
+```
+pip install --upgrade pip
+```
+
+- Instalaremos pgadmin4. Ten en cuenta uqe seguimos usando nuestra virtaulizacion.
+
+```
+pip install pgadmin4
+```
+
+- Una vez instalado comprobamos su instalacion escribiendo lo siguiente:
+
+```
+pgadmin4
+```
+
+directamente en la terminal.
+
+- Nos pedira datos para poder acceder como email, password, debemos poner credenciales los cuales nos podamos acordar con facilidad.
+
+- Se abrira el servidor y el puerto `5050` por defecto en nuestor localhost. Abre tu navegador e ingresa a la siguiente ruta.
+
+```
+localhost:5050
+```
+
+- Una vez cargue la pagina web login de pgadmin en nuestro navegador accedemos con las credenciales que anteriormente ingresamos.
+
+- Listo! Hemos culiminado nuestra instalacion.
+
+
+### pgadmin4
+
+- Crearemos un nuevo registro por nombre le daremos Forum\_Django\_DB y en conexion sera:
+
+  - Nombre/Direccion de servidor : localhost
+  - Puerto: 5432
+  - Base de datos de mantenimiento: postgres
+  - Nombre de usuario admin 
+
+salvamos nuestros cambios y listo.
 
 ### Conectar Django a PostgresSQL
 
@@ -596,6 +733,18 @@ Una vez creada la base de datos en **PostgresSQL** nos dirigimos a nuestro proye
     }
   }
   ```
+- Crearemos nuestra primera migracion de nuestra ase de datos.
+
+```
+python manage.py migrate
+```
+
+- Crearemos un super usuario para acceder a el panel administrador que nos proporciona django.
+
+```
+python manage.py createsuperuser
+```
+sigue la secuencia que te mostrara django y listo ahora podremos ingresar a el super administrador escribiendo en la ruta `/admin`.
 
 ### Creando las apps de nuestro proyecto
 
@@ -611,3 +760,4 @@ anadir el tailwind y algunos plugins tambien explicar los que se agregaron por d
 configurar la template base
 hacer la prueba del admin
 agregar el administrador
+
